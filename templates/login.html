@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Space Station Command{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .login-container {
+        max-width: 500px;
+        margin: 4rem auto;
+    }
+
+    .login-card {
+        background: rgba(26, 31, 58, 0.9);
+        border-radius: 16px;
+        padding: 3rem;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .login-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .login-header h2 {
+        color: #00d4ff;
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+
+    .login-header p {
+        color: #b0b0b0;
+        font-size: 0.95rem;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #00d4ff;
+        font-weight: 500;
+    }
+
+    .form-group input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: rgba(10, 14, 39, 0.8);
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        border-radius: 8px;
+        color: #e0e0e0;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .form-group input:focus {
+        outline: none;
+        border-color: #00d4ff;
+        box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .form-group input::placeholder {
+        color: #666;
+    }
+
+    .btn-login {
+        width: 100%;
+        padding: 1rem;
+        margin-top: 1rem;
+        background: linear-gradient(135deg, #00d4ff 0%, #0088ff 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(0, 212, 255, 0.3);
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 212, 255, 0.5);
+    }
+
+    .login-icon {
+        font-size: 4rem;
+        text-align: center;
+        margin-bottom: 1rem;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .credentials-hint {
+        margin-top: 2rem;
+        padding: 1rem;
+        background: rgba(0, 255, 136, 0.05);
+        border-left: 3px solid #00ff88;
+        border-radius: 5px;
+    }
+
+    .credentials-hint h4 {
+        color: #00ff88;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .credentials-hint ul {
+        list-style: none;
+        padding-left: 0;
+        font-size: 0.85rem;
+        color: #b0b0b0;
+    }
+
+    .credentials-hint li {
+        padding: 0.3rem 0;
+    }
+
+    .credentials-hint code {
+        background: rgba(0, 212, 255, 0.1);
+        padding: 0.2rem 0.5rem;
+        border-radius: 3px;
+        color: #00d4ff;
+        font-family: 'Courier New', monospace;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-icon">🔐</div>
+        <div class="login-header">
+            <h2>Crew Authentication</h2>
+            <p>Enter your credentials to access the command center</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('login') }}">
+            <div class="form-group">
+                <label for="crew_id">🆔 Crew ID</label>
+                <input 
+                    type="text" 
+                    id="crew_id" 
+                    name="crew_id" 
+                    placeholder="Enter your Crew ID " 
+                    required
+                    autocomplete="username"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">🔑 Password</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    placeholder="Enter your password" 
+                    required
+                    autocomplete="current-password"
+                >
+            </div>
+
+            <button type="submit" class="btn-login">🚀 Launch Access</button>
+        </form>
+
+        
+    </div>
+</div>
+{% endblock %}

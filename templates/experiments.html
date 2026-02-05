@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}Experiments - {{ mission['mission_name'] }}{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .experiments-header {
+        margin-bottom: 3rem;
+    }
+
+    .mission-info {
+        background: rgba(26, 31, 58, 0.8);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 2px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .mission-info h1 {
+        font-size: 2.2rem;
+        color: #00d4ff;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+
+    .mission-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin-top: 1rem;
+    }
+
+    .mission-detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #b0b0b0;
+    }
+
+    .mission-detail-item strong {
+        color: #00ff88;
+    }
+
+    .mission-description-text {
+        color: #e0e0e0;
+        line-height: 1.6;
+        margin-top: 1rem;
+    }
+
+    .experiments-section {
+        margin-top: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+        color: #00ff88;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid rgba(0, 255, 136, 0.3);
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+    }
+
+    .experiments-count {
+        display: inline-block;
+        background: rgba(0, 212, 255, 0.2);
+        color: #00d4ff;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        margin-left: 1rem;
+    }
+
+    .experiments-list {
+        display: grid;
+        gap: 1.5rem;
+    }
+
+    .experiment-card {
+        background: rgba(26, 31, 58, 0.6);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border-left: 4px solid #00d4ff;
+        transition: all 0.3s ease;
+    }
+
+    .experiment-card:hover {
+        transform: translateX(10px);
+        box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        border-left-color: #00ff88;
+    }
+
+    .experiment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+    }
+
+    .experiment-name {
+        font-size: 1.3rem;
+        color: #00d4ff;
+        font-weight: 600;
+    }
+
+    .experiment-status {
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-left: 1rem;
+        white-space: nowrap;
+    }
+
+    .status-in-progress {
+        background: rgba(255, 193, 7, 0.2);
+        color: #ffc107;
+        border: 1px solid #ffc107;
+    }
+
+    .status-completed {
+        background: rgba(0, 255, 136, 0.2);
+        color: #00ff88;
+        border: 1px solid #00ff88;
+    }
+
+    .status-planned {
+        background: rgba(0, 212, 255, 0.2);
+        color: #00d4ff;
+        border: 1px solid #00d4ff;
+    }
+
+    .experiment-description {
+        color: #b0b0b0;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .experiment-results {
+        background: rgba(0, 255, 136, 0.05);
+        border-left: 3px solid #00ff88;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-top: 1rem;
+    }
+
+    .experiment-results h4 {
+        color: #00ff88;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .experiment-results p {
+        color: #e0e0e0;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .no-results {
+        color: #666;
+        font-style: italic;
+    }
+
+    .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.5rem;
+        background: rgba(26, 31, 58, 0.8);
+        color: #00d4ff;
+        text-decoration: none;
+        border-radius: 8px;
+        border: 2px solid rgba(0, 212, 255, 0.3);
+        transition: all 0.3s ease;
+        margin-bottom: 2rem;
+    }
+
+    .back-button:hover {
+        background: rgba(0, 212, 255, 0.1);
+        border-color: #00d4ff;
+        transform: translateX(-5px);
+    }
+
+    .no-experiments {
+        text-align: center;
+        padding: 3rem;
+        color: #666;
+        font-size: 1.1rem;
+        background: rgba(26, 31, 58, 0.6);
+        border-radius: 12px;
+        border: 2px dashed rgba(0, 212, 255, 0.3);
+    }
+
+    .experiment-id {
+        font-size: 0.85rem;
+        color: #666;
+        font-family: 'Courier New', monospace;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('missions') }}" class="back-button">
+    ← Back to Missions
+</a>
+
+<div class="experiments-header">
+    <div class="mission-info">
+        <h1>🚀 {{ mission['name'] }}</h1>
+        
+        <div class="mission-details">
+            <div class="mission-detail-item">
+                <strong>📅 Launch Date:</strong> {{ mission['launch_date'] }}
+            </div>
+            <div class="mission-detail-item">
+                <strong>🏷️ Purpose:</strong> {{ mission['purpose'] }}
+            </div>
+        </div>
+
+        <p class="mission-description-text">Mission {{ mission['mission_id'] }}: {{ mission['name'] }} - {{ mission['purpose'] }}</p>
+    </div>
+</div>
+
+<div class="experiments-section">
+    <h2 class="section-title">
+        🔬 Mission Experiments
+        <span class="experiments-count">{{ experiments|length }}</span>
+    </h2>
+
+    {% if experiments %}
+        <div class="experiments-list">
+            {% for experiment in experiments %}
+            <div class="experiment-card">
+                <div class="experiment-header">
+                    <div>
+                        <h3 class="experiment-name">{{ experiment['title'] }}</h3>
+                        <div class="experiment-id">EXP-{{ '%04d'|format(experiment['experiment_id']) }} | Field: {{ experiment['field'] }}</div>
+                        {% if experiment['crew_name'] %}
+                        <div class="experiment-id">Assigned to: {{ experiment['crew_name'] }}</div>
+                        {% endif %}
+                    </div>
+                    <span class="experiment-status status-{{ experiment['status']|lower|replace(' ', '-') }}">
+                        {{ experiment['status'] }}
+                    </span>
+                </div>
+
+                <p class="experiment-description">Research Field: {{ experiment['field'] }}</p>
+
+                <div class="experiment-results">
+                    <h4>📋 Status:</h4>
+                    <p>{{ experiment['status'] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="no-experiments">
+            <p>🔭 No experiments have been assigned to this mission yet.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

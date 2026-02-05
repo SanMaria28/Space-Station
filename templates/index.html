@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Space Station Command{% endblock %}
+
+{% block extra_styles %}
+<style>
+    .hero {
+        text-align: center;
+        padding: 4rem 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #00d4ff 0%, #00ff88 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+        from {
+            filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.5));
+        }
+        to {
+            filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.8));
+        }
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+        color: #b0b0b0;
+        margin-bottom: 2rem;
+    }
+
+    .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .feature-card {
+        background: rgba(26, 31, 58, 0.6);
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid rgba(0, 212, 255, 0.2);
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+        border-color: #00d4ff;
+        box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+    }
+
+    .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+        color: #00d4ff;
+        margin-bottom: 1rem;
+    }
+
+    .feature-card p {
+        color: #b0b0b0;
+        line-height: 1.6;
+    }
+
+    .cta-section {
+        text-align: center;
+        margin-top: 4rem;
+        padding: 3rem;
+        background: rgba(0, 212, 255, 0.05);
+        border-radius: 12px;
+        border: 2px solid rgba(0, 212, 255, 0.2);
+    }
+
+    .cta-section h2 {
+        color: #00d4ff;
+        margin-bottom: 1.5rem;
+        font-size: 2rem;
+    }
+
+    .planet {
+        position: fixed;
+        border-radius: 50%;
+        opacity: 0.1;
+        animation: float 20s ease-in-out infinite;
+        z-index: -1;
+    }
+
+    .planet-1 {
+        width: 150px;
+        height: 150px;
+        background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
+        top: 10%;
+        right: 10%;
+        animation-delay: 0s;
+    }
+
+    .planet-2 {
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(circle at 30% 30%, #4dabf7, #1864ab);
+        bottom: 15%;
+        left: 5%;
+        animation-delay: 5s;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-30px) rotate(10deg); }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="planet planet-1"></div>
+<div class="planet planet-2"></div>
+
+<div class="hero">
+    <h1>🌌 Welcome to Space Station Command</h1>
+    <p>Your gateway to exploring the cosmos and managing interstellar missions</p>
+    {% if not session.crew_id %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary">🚀 Begin Your Journey</a>
+    {% else %}
+        <a href="{{ url_for('missions') }}" class="btn btn-primary">📋 View Your Missions</a>
+    {% endif %}
+</div>
+
+<div class="features">
+    <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Mission Control</h3>
+        <p>Access and manage all space station missions. Track progress, view details, and coordinate with your crew members.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🔬</div>
+        <h3>Research Experiments</h3>
+        <p>Explore cutting-edge scientific experiments conducted across various missions. View results and contribute to discoveries.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">👨‍🚀</div>
+        <h3>Crew Management</h3>
+        <p>Coordinate with fellow astronauts and scientists. Each crew member has specialized roles and assigned missions.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Mission Analytics</h3>
+        <p>View detailed analytics and reports on mission progress, experiment outcomes, and crew performance metrics.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🛰️</div>
+        <h3>Real-time Updates</h3>
+        <p>Stay informed with real-time mission updates, status changes, and important communications from mission control.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon">🌍</div>
+        <h3>Planetary Exploration</h3>
+        <p>Participate in missions exploring Mars, Europa, asteroids, and beyond. Push the boundaries of human exploration.</p>
+    </div>
+</div>
+
+<div class="cta-section">
+    <h2>Ready to Explore the Universe?</h2>
+    <p style="color: #b0b0b0; margin-bottom: 2rem;">
+        Join our elite crew of astronauts and scientists as we push the boundaries of space exploration.
+        Log in to access your mission assignments and contribute to humanity's greatest adventure.
+    </p>
+    {% if not session.crew_id %}
+        <a href="{{ url_for('login') }}" class="btn btn-primary">🔐 Crew Login</a>
+    {% endif %}
+</div>
+{% endblock %}
