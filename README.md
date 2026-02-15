@@ -2,6 +2,11 @@
 
 A beautiful space-themed Streamlit web application for managing space station missions, crew members, and experiments.
 
+## Application
+The application was deployed via streamlit.io
+
+[Space Station Command Center](https://space-stationgit-jfewdrr9jdx93fratbbz8g.streamlit.app/)
+
 ## Features
 
 - 🏠 **Home Page**: Beautiful space-themed landing page with animated stars and floating planets
