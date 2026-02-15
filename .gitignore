@@ -11,8 +11,8 @@ ENV/
 # Database
 *.db
 
-# Streamlit
-.streamlit/
+# Streamlit secrets only (not config)
+.streamlit/secrets.toml
 
 # IDEs
 .vscode/
