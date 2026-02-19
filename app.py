@@ -971,10 +971,12 @@ def all_missions_page():
     
     conn = get_db_connection()
     
-    # Get all missions
+    # Get all missions with commander names
     all_missions = conn.execute('''
-        SELECT m.*
+        SELECT m.*, c.name as commander_name
         FROM mission m
+        LEFT JOIN mission_crew mc ON m.mission_id = mc.mission_id
+        LEFT JOIN crew c ON mc.crew_id = c.crew_id
         ORDER BY m.launch_date DESC
     ''').fetchall()
     
@@ -1009,7 +1011,7 @@ def all_missions_page():
                     <span class="status-badge {status_class}">{mission['purpose']}</span>
                 </div>
                 <p style="color: #b0b0b0; margin-bottom: 0.5rem;">📅 {mission['launch_date']}</p>
-                <p style="color: #e0e0e0; margin-bottom: 1rem;">Mission ID: {mission['mission_id']}</p>
+                <p style="color: #e0e0e0; margin-bottom: 1rem;">Mission ID: {mission['mission_id']}<br>Commander: {mission['commander_name']}</p>
             </div>
             """, unsafe_allow_html=True)
             
@@ -1324,7 +1326,8 @@ def data_management_page():
             conn = get_db_connection()
             missions = conn.execute('''SELECT m.*, c.name as crew_name 
                                       FROM mission m 
-                                      LEFT JOIN crew c ON m.crew_id = c.crew_id 
+                                      LEFT JOIN mission_crew mc ON m.mission_id = mc.mission_id
+                                      LEFT JOIN crew c ON mc.crew_id = c.crew_id 
                                       ORDER BY m.mission_id''').fetchall()
             conn.close()
             
